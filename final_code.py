@@ -8,8 +8,6 @@ import pickle
 import os,sys
 import math
 
-os.chdir("/Users/utkarshvirendranigam/Desktop/Final-Project-Group6/Code")
-
 array=np.zeros((200,800),int)
 new_array=[]
 character_list=["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"]
@@ -56,9 +54,7 @@ class ExampleApp(tk.Tk):
         self.label['text'] = " Predicted Value: "
 
     def submit(self):
-        global new_array
-        global app
-        new_array=self.points_recorded
+        self.my_array=self.points_recorded
         self.write_dataframe()
 
     def print_points(self):
@@ -90,91 +86,88 @@ class ExampleApp(tk.Tk):
 
     def write_dataframe(self):
         self.final_write=pd.DataFrame()
-        array = np.full((200, 800), 0)
-        my_array = new_array
-        x_array = []
-        y_array = []
-        try:
-            for i in range(0, int((len(my_array)) / 2)):
-                cord_1, cord_2 = my_array[(2 * i) + 1], my_array[2 * i],
-                if (cord_1<195 and cord_1>5 and cord_2<795 and cord_2>5):
-                    for k in range(0, 10):
-                        for j in range(0, 10):
-                            array[cord_1 + 5 - k,cord_2 + 5 - j,] = 255
+        self.array = np.full((200, 800), 0)
 
-            check = np.arange(0, 800).tolist()
-            final_check = set(check) - set(np.where(~array.any(axis=0))[0].tolist())
-            final_check = list(final_check)  # .tolist()
+        #try:
+        for i in range(0, int((len(self.my_array)) / 2)):
+            cord_1, cord_2 = self.my_array[(2 * i) + 1], self.my_array[2 * i],
+            if (cord_1<195 and cord_1>5 and cord_2<795 and cord_2>5):
+                for k in range(0, 10):
+                    for j in range(0, 10):
+                        self.array[cord_1 + 5 - k,cord_2 + 5 - j,] = 255
 
-            start_array = []
-            range_array = []
+        self.check = np.arange(0, 800).tolist()
+        self.final_check = set(self.check) - set(np.where(~self.array.any(axis=0))[0].tolist())
+        self.final_check = list(self.final_check)  # .tolist()
 
-            for k in range(0, len(final_check) - 1):
-                range_letter = final_check[k + 1] - final_check[k]
-                if (range_letter > 9):
-                    range_array.append(range_letter)
+        self.start_array = []
+        self.range_array = []
 
-            word_flag = 0
-            start_array = []
-            pixel_count = 0
+        for k in range(0, len(self.final_check) - 1):
+            range_letter = self.final_check[k + 1] - self.final_check[k]
+            if (range_letter > 9):
+                self.range_array.append(range_letter)
 
-            for i in range(0, len(final_check) - 1):
-                range_letter = final_check[i + 1] - final_check[i]
-                if (range_letter == range_array[word_flag]):
-                    start_array.append(final_check[i - pixel_count])
-                    start_array.append(final_check[i])
-                    pixel_count = 0
-                    if (word_flag == len(range_array) - 1):
-                        continue
-                    else:
-                        word_flag += 1
+        self.word_flag = 0
+        self.pixel_count = 0
+
+        for i in range(0, len(self.final_check) - 1):
+            range_letter = self.final_check[i + 1] - self.final_check[i]
+            if (range_letter == self.range_array[self.word_flag]):
+                self.start_array.append(self.final_check[i - self.pixel_count])
+                self.start_array.append(self.final_check[i])
+                self.pixel_count = 0
+                if (self.word_flag == len(self.range_array) - 1):
+                    continue
                 else:
-                    pixel_count += 1
+                    self.word_flag += 1
+            else:
+                self.pixel_count += 1
 
-            if (pixel_count > 1):
-                start_array.append(final_check[-1 - pixel_count])
-                start_array.append(final_check[-1])
+        if (self.pixel_count > 1):
+            self.start_array.append(self.final_check[-1 - self.pixel_count])
+            self.start_array.append(self.final_check[-1])
 
-            for j in range(0, int(len(start_array) / 2)):
-                new_np = array[:, start_array[(2 * j)]:start_array[(2 * j) + 1]]
-                row_check = np.where(~new_np.any(axis=1))[0].tolist()
+        for j in range(0, int(len(self.start_array) / 2)):
+            new_np = self.array[:, self.start_array[(2 * j)]:self.start_array[(2 * j) + 1]]
+            row_check = np.where(~new_np.any(axis=1))[0].tolist()
 
-                for a in range(0, len(row_check) - 1):
-                    row_difference = row_check[a + 1] - row_check[a]
-                    if (row_difference > 9):
-                        start_row = row_check[a] + 1
-                        end_row = row_check[a + 1] - 1
-                        break
-                new_np = new_np[start_row:end_row, :]
-                pad_h = 200 - new_np.shape[0]
-                pad_v = 200 - new_np.shape[1]
-                if (pad_h % 2 == 0):
-                    pad_h1, pad_h2 = pad_h / 2, pad_h / 2
-                else:
-                    pad_h1, pad_h2 = math.floor(pad_h / 2), math.ceil(pad_h / 2)
+            for a in range(0, len(row_check) - 1):
+                row_difference = row_check[a + 1] - row_check[a]
+                if (row_difference > 9):
+                    start_row = row_check[a] + 1
+                    end_row = row_check[a + 1] - 1
+                    break
+            new_np = new_np[start_row:end_row, :]
+            pad_h = 200 - new_np.shape[0]
+            pad_v = 200 - new_np.shape[1]
+            if (pad_h % 2 == 0):
+                pad_h1, pad_h2 = pad_h / 2, pad_h / 2
+            else:
+                pad_h1, pad_h2 = math.floor(pad_h / 2), math.ceil(pad_h / 2)
 
-                if (pad_v % 2 == 0):
-                    pad_v1, pad_v2 = pad_v / 2, pad_v / 2
-                else:
-                    pad_v1, pad_v2 = math.floor(pad_v / 2), math.ceil(pad_v / 2)
-                new_np = np.pad(new_np, ((int(pad_h1), int(pad_h2)), (int(pad_v1), int(pad_v2))), 'constant',
-                                constant_values=(0, 0))
-                plt.imshow(new_np, cmap="gray", aspect='equal')
-                plt.axis('off')
-                plt.savefig('Letter' + str(j + 1) + '.png', bbox_inches='tight')
-                image = Image.open('Letter' + str(j + 1) + '.png').convert('L')
-                os.remove('Letter' + str(j + 1) + '.png')
-                image = image.resize((28, 28), Image.ANTIALIAS)
-                data = np.asarray(image)
+            if (pad_v % 2 == 0):
+                pad_v1, pad_v2 = pad_v / 2, pad_v / 2
+            else:
+                pad_v1, pad_v2 = math.floor(pad_v / 2), math.ceil(pad_v / 2)
+            new_np = np.pad(new_np, ((int(pad_h1), int(pad_h2)), (int(pad_v1), int(pad_v2))), 'constant',
+                            constant_values=(0, 0))
+            plt.imshow(new_np, cmap="gray", aspect='equal')
+            plt.axis('off')
+            plt.savefig('Letter' + str(j + 1) + '.png', bbox_inches='tight')
+            image = Image.open('Letter' + str(j + 1) + '.png').convert('L')
+            os.remove('Letter' + str(j + 1) + '.png')
+            image = image.resize((28, 28), Image.ANTIALIAS)
+            data = np.asarray(image)
 
-                data = np.array([data.ravel()])
-                temp_df = pd.DataFrame(data=data)
-                self.final_write = self.final_write.append(temp_df)
-            self.predict_word()
-        except:
-            self.points_recorded = []
-            self.canvas.delete("all")
-            self.label['text'] = " Didnt Get The Word! Please Redraw!"
+            data = np.array([data.ravel()])
+            temp_df = pd.DataFrame(data=data)
+            self.final_write = self.final_write.append(temp_df)
+        self.predict_word()
+        #except:
+        #    self.points_recorded = []
+        #    self.canvas.delete("all")
+        #    self.label['text'] = " Didnt Get The Word! Please Redraw!"
 
     def predict_word(self):
         global character_list
