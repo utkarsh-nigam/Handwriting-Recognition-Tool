@@ -8,7 +8,7 @@ Dataset used was created by the National Institute of Standards and Technology (
 Dataset Link: https://www.nist.gov/srd/nist-special-database-19
 
 ## Preprocessing
-While each character in the original dataset occupies 128x128 pixels per raster, in order to avoid heavy computation first, the size of the image was reduced to 56 x 56 pixels, and then further reduced the canvas size to 28x28 pixels by removing the padding and thus creating a 784 feature configuration dataset. Each character is labeled sequentially from “A”- “Z”.
+While each character in the original dataset occupies 128x128 pixels per raster, in order to avoid heavy computation, first the size of the image was reduced to 56 x 56 pixels, and then further the canvas size was reduced to 28x28 pixels by removing the padding and thus creating a 784 feature configuration dataset. Each character is labeled sequentially from “A”- “Z”.
 
 ![Alt text](/assets/img/PreProcessing1.png?raw=true "")
 Figure 2: (a) Original 128 x 128-pixel raster as obtained from the NIST Database, (b) 56 x 56- pixel raster upon resizing the image, (c) 28 x 28-pixel raster upon removing the padding from the resized image
