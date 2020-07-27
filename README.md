@@ -11,6 +11,7 @@ Dataset Link: https://www.nist.gov/srd/nist-special-database-19
 While each character in the original dataset occupies 128x128 pixels per raster, in order to avoid heavy computation first, the size of the image was reduced to 56 x 56 pixels, and then further reduced the canvas size to 28x28 pixels by removing the padding and thus creating a 784 feature configuration dataset. Each character is labeled sequentially from “A”- “Z”.
 
 ![Alt text](/assets/img/PreProcessing1.png?raw=true "")
+Figure 2: (a) Original 128 x 128-pixel raster as obtained from the NIST Database, (b) 56 x 56- pixel raster upon resizing the image, (c) 28 x 28-pixel raster upon removing the padding from the resized image
 
 The package ‘tkinter’ enables the programming of the user interface. The implementation of this package created a canvas platform where-in the user is able to enter their character or word inputs. The pop-up canvas will convert the image into a NumPy array, traveling column-wise through the canvas and looking for a filled pixel to mark the beginning of a letter. For words, the model continues to traverse and look for a column where there is significant relative blank space to mark the beginning of the second character. The tool is intelligent enough to differentiate a break in letters versus the beginning of a second letter.
 
