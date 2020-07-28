@@ -21,7 +21,7 @@ The package ‘tkinter’ enables the programming of the user interface. Once th
 For this tool, Multi Layer Perceptron (MLP) classifier with Adam solver and sigmoid function has been used to achieve significant results.
 
 ## Run the tool
-To run the GUI, run the "final_code.py".
+To start the GUI, run the "final_code.py".
 
 <strong>Note:</strong> To use the pre trained model in the GUI, "MLP_Adam_100_SelectedData_sigmoid_earlystop.sav", please ensure you have sklearn version 0.22.1 installed in Anaconda. Otherwise, kindly follow the below steps to run the tool:
 1. Unzip the final_data_a_z.csv.zip.
