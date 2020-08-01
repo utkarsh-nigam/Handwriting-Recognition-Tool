@@ -18,11 +18,11 @@ The package ‘tkinter’ enables the programming of the user interface. Once th
 ![Alt text](/assets/img/PreProcessing2.png?raw=true "")
 
 ## Model Configuration
-For this tool, Multi-Layer Perceptron (MLP) classifier has been trained using backpropagation to achieve significant results. Below is the configuration of the neural network:
-•	Hidden Layer Size: (100,100,100) i.e., 3 hidden layers with 100 neurons in each
-•	Activation Function: logistic sigmoid, returns f(x) = 1 / (1 + exp(-x))
-•	Solver for weight optimization: stochastic gradient-based optimizer (“Adam”)
-•	Early Stopping (to avoid overfitting): True
+For this tool, Multi-Layer Perceptron (MLP) classifier has been trained using backpropagation to achieve significant results. Below is the configuration of the neural network:  
+•	Hidden Layer Size: (100,100,100) i.e., 3 hidden layers with 100 neurons in each.  
+•	Activation Function: logistic sigmoid, returns f(x) = 1 / (1 + exp(-x)).  
+•	Solver for weight optimization: stochastic gradient-based optimizer (“Adam”).  
+•	Early Stopping (to avoid overfitting): True.  
 
 ![Alt text](/assets/img/PreProcessing3.png?raw=true "")
 Figure 4: MLP Archhitecture
