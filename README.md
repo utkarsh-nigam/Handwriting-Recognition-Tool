@@ -1,4 +1,4 @@
-# Neural Network Based Handwriting Recognition Tool
+# Deep Learning Based Handwriting Recognition Tool
 
 ## Objective
 To enable a machine learning-driven handwriting recognition application that can convert the handwritten script into a computerized legible script, and continuously learn in the process.
